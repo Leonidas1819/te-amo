@@ -3,88 +3,155 @@
 <head>
   <meta charset="UTF-8">
   <title>Te Amo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       padding: 0;
       height: 100vh;
-      background: radial-gradient(circle, crimson, black);
-      background-size: 400% 400%;
-      animation: explode 6s infinite alternate;
+      background: linear-gradient(135deg, #8e0038, #1a000f);
+      overflow: hidden;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
     }
 
-    @keyframes explode {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 100% 50%; }
-    }
-
     h1 {
-      font-size: 100px;
-      color: white;
-      text-shadow: 0 0 20px red, 0 0 40px yellow;
-      animation: pulse 1s infinite alternate;
-      font-family: 'Arial', sans-serif;
+      font-family: 'Great Vibes', cursive;
+      font-size: 120px;
+      color: #fff;
+      text-shadow: 0 0 15px #ff4d6d, 0 0 40px #ff4d6d;
+      animation: pulse 2s infinite;
       margin: 0;
+      z-index: 1;
     }
 
     @keyframes pulse {
       0% { transform: scale(1); }
-      100% { transform: scale(1.1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
     }
 
     button {
-      margin-top: 30px;
-      padding: 15px 30px;
-      font-size: 20px;
-      background-color: white;
-      color: crimson;
+      margin-top: 40px;
+      padding: 15px 35px;
+      font-size: 22px;
+      font-family: 'Open Sans', sans-serif;
+      background: #fff;
+      color: #d10042;
       border: none;
-      border-radius: 10px;
+      border-radius: 50px;
       cursor: pointer;
-      box-shadow: 0 0 10px red;
-      transition: transform 0.3s ease;
+      box-shadow: 0 0 20px #ff4d6d;
+      transition: transform 0.3s ease, background 0.3s ease;
+      animation: heartbeat 1.5s infinite;
+      z-index: 1;
     }
 
     button:hover {
       transform: scale(1.1);
+      background: #ffe6eb;
+    }
+
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      30% { transform: scale(1.05); }
+      60% { transform: scale(1); }
+      100% { transform: scale(1); }
     }
 
     #mensaje {
       margin-top: 30px;
-      color: white;
-      font-size: 24px;
+      font-size: 26px;
+      font-family: 'Open Sans', sans-serif;
+      color: #fff;
       display: none;
-      animation: fadeIn 2s ease-in;
+      animation: fadeIn 2s ease-in-out;
       text-align: center;
       max-width: 80%;
+      z-index: 1;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: float 6s linear infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      top: 0;
+      left: -10px;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) scale(0.5) rotate(45deg);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1) rotate(45deg);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
   <h1>TE AMO</h1>
-  <button onclick="reproducirMusica()">Haz clic aquí ❤️</button>
+  <button onclick="reproducirMusica()">Haz clic aquí amor💖</div>
+</button>
   <div id="mensaje">Desde el fondo de mi corazón, eres lo mejor que me ha pasado. 💖</div>
 
-  <!-- 🎵 Audio oculto -->
+  <!-- Audio oculto -->
   <audio id="miAudio" loop>
     <source src="serotonina.mp3" type="audio/mpeg">
     Tu navegador no soporta audio HTML5.
   </audio>
 
+  <!-- Corazones animados -->
   <script>
     function reproducirMusica() {
       const audio = document.getElementById("miAudio");
       audio.play();
       document.getElementById("mensaje").style.display = "block";
+    }
+
+    // Generar corazones flotantes
+    const totalHearts = 30;
+    for (let i = 0; i < totalHearts; i++) {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = 4 + Math.random() * 4 + "s";
+      heart.style.opacity = Math.random();
+      heart.style.transform = `rotate(45deg) scale(${Math.random() + 0.5})`;
+      document.body.appendChild(heart);
     }
   </script>
 </body>
